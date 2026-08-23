@@ -121,6 +121,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             initialValue: centers.any((c) => c.name == _selectedCenter)
                 ? _selectedCenter
                 : centers.first.name,
+            isExpanded: true,
             decoration: const InputDecoration(
               labelText: 'Select Donation Center',
               prefixIcon: Icon(Icons.local_hospital),
@@ -143,14 +144,24 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           // Donation Type
           DropdownButtonFormField<String>(
             initialValue: _selectedType,
+            isExpanded: true,
             decoration: const InputDecoration(
               labelText: 'Donation Component Type',
               prefixIcon: Icon(Icons.bloodtype),
             ),
             items: const [
-              DropdownMenuItem(value: 'Whole Blood', child: Text('Whole Blood (450ml)')),
-              DropdownMenuItem(value: 'Platelets', child: Text('Platelets (Apheresis)')),
-              DropdownMenuItem(value: 'Plasma', child: Text('Plasma (Plasmapheresis)')),
+              DropdownMenuItem(
+                value: 'Whole Blood',
+                child: Text('Whole Blood (450ml)', overflow: TextOverflow.ellipsis),
+              ),
+              DropdownMenuItem(
+                value: 'Platelets',
+                child: Text('Platelets (Apheresis)', overflow: TextOverflow.ellipsis),
+              ),
+              DropdownMenuItem(
+                value: 'Plasma',
+                child: Text('Plasma (Plasmapheresis)', overflow: TextOverflow.ellipsis),
+              ),
             ],
             onChanged: (val) {
               if (val != null) setState(() => _selectedType = val);
