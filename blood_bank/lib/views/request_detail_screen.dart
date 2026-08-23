@@ -39,10 +39,13 @@ class RequestDetailScreen extends StatelessWidget {
                 : null,
             child: Row(
               children: [
-                BloodGroupBadge(
-                  group: request.bloodGroup,
-                  size: 64,
-                  isSelected: true,
+                Hero(
+                  tag: 'blood_badge_${request.id}',
+                  child: BloodGroupBadge(
+                    group: request.bloodGroup,
+                    size: 64,
+                    isSelected: true,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(

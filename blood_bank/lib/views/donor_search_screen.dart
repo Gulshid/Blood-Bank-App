@@ -3,6 +3,7 @@ import '../models/blood_group.dart';
 import '../providers/app_provider.dart';
 import '../services/compatibility_engine.dart';
 import '../theme/app_theme.dart';
+import '../widgets/animations/fade_slide_in.dart';
 import '../widgets/blood_group_badge.dart';
 import '../widgets/donor_card.dart';
 import '../widgets/glass_card.dart';
@@ -160,22 +161,25 @@ class DonorSearchScreen extends StatelessWidget {
                     itemCount: filteredDonors.length,
                     itemBuilder: (context, index) {
                       final donor = filteredDonors[index];
-                      return DonorCard(
-                        donor: donor,
-                        onCall: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Calling ${donor.name} (${donor.phone})...'),
-                            ),
-                          );
-                        },
-                        onMessage: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Opening chat with ${donor.name}...'),
-                            ),
-                          );
-                        },
+                      return FadeSlideIn(
+                        index: index,
+                        child: DonorCard(
+                          donor: donor,
+                          onCall: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Calling ${donor.name} (${donor.phone})...'),
+                              ),
+                            );
+                          },
+                          onMessage: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Opening chat with ${donor.name}...'),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     },
                   ),

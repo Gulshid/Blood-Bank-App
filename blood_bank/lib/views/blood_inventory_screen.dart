@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../providers/app_provider.dart';
+import '../utils/page_transitions.dart';
+import '../widgets/animations/fade_slide_in.dart';
 import '../widgets/inventory_card.dart';
 import 'appointment_screen.dart';
 
@@ -64,17 +66,20 @@ class BloodInventoryScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          ...centers.map((center) {
-            return InventoryCard(
-              center: center,
-              onBookSlot: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => AppointmentScreen(preSelectedCenter: center.name),
-                  ),
-                );
-              },
+          ...centers.asMap().entries.map((entry) {
+            final index = entry.key;
+            final center = entry.value;
+            return FadeSlideIn(
+              index: index,
+              child: InventoryCard(
+                center: center,
+                onBookSlot: () {
+                  pushSlideFade(
+                    context,
+                    AppointmentScreen(preSelectedCenter: center.name),
+                  );
+                },
+              ),
             );
           }),
         ],

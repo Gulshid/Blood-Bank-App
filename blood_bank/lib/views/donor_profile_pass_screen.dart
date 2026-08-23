@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
+import '../widgets/animations/animated_counter.dart';
+import '../widgets/animations/fade_slide_in.dart';
 import '../widgets/blood_group_badge.dart';
 import '../widgets/glass_card.dart';
 
@@ -95,8 +97,9 @@ class DonorProfilePassScreen extends StatelessWidget {
                           'TOTAL DONATIONS',
                           style: TextStyle(fontSize: 10, color: Colors.white60),
                         ),
-                        Text(
-                          '${user.totalDonationsCount} Times',
+                        AnimatedCounter(
+                          value: user.totalDonationsCount,
+                          suffix: ' Times',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -112,8 +115,9 @@ class DonorProfilePassScreen extends StatelessWidget {
                           'LIVES IMPACTED',
                           style: TextStyle(fontSize: 10, color: Colors.white60),
                         ),
-                        Text(
-                          '${user.livesSavedEstimate} Lives',
+                        AnimatedCounter(
+                          value: user.livesSavedEstimate,
+                          suffix: ' Lives',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -210,7 +214,10 @@ class DonorProfilePassScreen extends StatelessWidget {
             itemCount: user.badges.length,
             itemBuilder: (context, index) {
               final badge = user.badges[index];
-              return GlassCard(
+              return FadeSlideIn(
+                index: index,
+                offsetY: 14,
+                child: GlassCard(
                 padding: const EdgeInsets.all(10),
                 child: Row(
                   children: [
@@ -259,6 +266,7 @@ class DonorProfilePassScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                ),
               );
             },
           ),
@@ -271,8 +279,13 @@ class DonorProfilePassScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          ...user.donationHistory.map((rec) {
-            return GlassCard(
+          ...user.donationHistory.asMap().entries.map((entry) {
+            final index = entry.key;
+            final rec = entry.value;
+            return FadeSlideIn(
+              index: index,
+              offsetY: 14,
+              child: GlassCard(
               margin: const EdgeInsets.only(bottom: 10),
               child: Row(
                 children: [
@@ -305,6 +318,7 @@ class DonorProfilePassScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
               ),
             );
           }),
