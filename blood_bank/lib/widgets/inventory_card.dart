@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/blood_group.dart';
 import '../models/blood_inventory.dart';
 import '../theme/app_theme.dart';
+import 'animations/press_scale.dart';
 import 'glass_card.dart';
 
 class InventoryCard extends StatelessWidget {
@@ -164,13 +165,17 @@ class InventoryCard extends StatelessWidget {
           const SizedBox(height: 14),
           SizedBox(
             width: double.infinity,
-            child: OutlinedButton.icon(
-              onPressed: onBookSlot,
-              icon: const Icon(Icons.calendar_month, size: 16),
-              label: const Text('Schedule Donation Slot'),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppTheme.medicalTeal),
-                foregroundColor: AppTheme.medicalTealAccent,
+            child: PressScale(
+              scaleAmount: 0.98,
+              onTap: onBookSlot,
+              child: OutlinedButton.icon(
+                onPressed: onBookSlot,
+                icon: const Icon(Icons.calendar_month, size: 16),
+                label: const Text('Schedule Donation Slot'),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: AppTheme.medicalTeal),
+                  foregroundColor: AppTheme.medicalTealAccent,
+                ),
               ),
             ),
           ),

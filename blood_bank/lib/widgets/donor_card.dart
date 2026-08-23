@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/donor_profile.dart';
 import '../theme/app_theme.dart';
+import 'animations/press_scale.dart';
 import 'blood_group_badge.dart';
 import 'glass_card.dart';
 
@@ -24,7 +25,10 @@ class DonorCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          BloodGroupBadge(group: donor.bloodGroup, size: 54, isSelected: true),
+          Hero(
+            tag: 'donor_badge_${donor.id}',
+            child: BloodGroupBadge(group: donor.bloodGroup, size: 54, isSelected: true),
+          ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -96,9 +100,9 @@ class DonorCard extends StatelessWidget {
           ),
           Column(
             children: [
-              IconButton(
-                onPressed: onCall,
-                icon: Container(
+              PressScale(
+                onTap: onCall,
+                child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: const BoxDecoration(
                     color: AppTheme.medicalTeal,
@@ -107,9 +111,10 @@ class DonorCard extends StatelessWidget {
                   child: const Icon(Icons.phone, size: 16, color: Colors.white),
                 ),
               ),
-              IconButton(
-                onPressed: onMessage,
-                icon: Container(
+              const SizedBox(height: 6),
+              PressScale(
+                onTap: onMessage,
+                child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: AppTheme.primaryCrimson.withValues(alpha: 0.15),
