@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'animations/animated_counter.dart';
+import 'animations/press_scale.dart';
 import 'glass_card.dart';
 
 class StatCard extends StatelessWidget {
   final String title;
-  final String value;
+  final int count;
   final String subtitle;
   final IconData icon;
   final Color iconColor;
@@ -12,7 +14,7 @@ class StatCard extends StatelessWidget {
   const StatCard({
     super.key,
     required this.title,
-    required this.value,
+    required this.count,
     required this.subtitle,
     required this.icon,
     required this.iconColor,
@@ -22,8 +24,9 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GlassCard(
+      child: PressScale(
         onTap: onTap,
+        child: GlassCard(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,8 +42,8 @@ class StatCard extends StatelessWidget {
                   ),
                   child: Icon(icon, size: 18, color: iconColor),
                 ),
-                Text(
-                  value,
+                AnimatedCounter(
+                  value: count,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -67,6 +70,7 @@ class StatCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ],
+        ),
         ),
       ),
     );

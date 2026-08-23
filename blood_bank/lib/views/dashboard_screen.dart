@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
+import '../utils/page_transitions.dart';
+import '../widgets/animations/animated_counter.dart';
+import '../widgets/animations/fade_slide_in.dart';
+import '../widgets/animations/pulse_dot.dart';
 import '../widgets/blood_group_badge.dart';
 import '../widgets/emergency_request_card.dart';
 import '../widgets/glass_card.dart';
@@ -106,8 +110,9 @@ class DashboardScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '${user.livesSavedEstimate} Lives Impacted',
+                              AnimatedCounter(
+                                value: user.livesSavedEstimate,
+                                suffix: ' Lives Impacted',
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -159,7 +164,7 @@ class DashboardScreen extends StatelessWidget {
                     children: [
                       StatCard(
                         title: 'Urgent Calls',
-                        value: '${activeRequests.length}',
+                        count: activeRequests.length,
                         subtitle: 'Active Nearby',
                         icon: Icons.notifications_active,
                         iconColor: AppTheme.statusCritical,
@@ -168,7 +173,7 @@ class DashboardScreen extends StatelessWidget {
                       const SizedBox(width: 10),
                       StatCard(
                         title: 'Active Donors',
-                        value: '${provider.filteredDonors.length}',
+                        count: provider.filteredDonors.length,
                         subtitle: 'Available Now',
                         icon: Icons.people_outline,
                         iconColor: AppTheme.medicalTealAccent,
@@ -184,12 +189,7 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const CreateRequestScreen(),
-                              ),
-                            );
+                            pushSlideFade(context, const CreateRequestScreen());
                           },
                           icon: const Icon(Icons.add_alert_rounded),
                           label: const Text('Post Request'),
@@ -236,15 +236,8 @@ class DashboardScreen extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: const BoxDecoration(
-                                color: AppTheme.statusCritical,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
+                            const PulseDot(color: AppTheme.statusCritical, size: 8),
+                            const SizedBox(width: 2),
                             Text(
                               '${activeRequests.length} Live',
                               style: const TextStyle(
@@ -270,26 +263,24 @@ class DashboardScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   final request = activeRequests[index];
-                  return EmergencyRequestCard(
-                    request: request,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => RequestDetailScreen(request: request),
-                        ),
-                      );
-                    },
-                    onRespond: () {
-                      provider.respondToDonation(request.id);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Thank you! Response recorded for ${request.patientName}\'s call.'),
-                          backgroundColor: AppTheme.statusOptimal,
-                        ),
-                      );
-                    },
+                  return FadeSlideIn(
+                    index: index,
+                    child: EmergencyRequestCard(
+                      request: request,
+                      onTap: () {
+                        pushSlideFade(context, RequestDetailScreen(request: request));
+                      },
+                      onRespond: () {
+                        provider.respondToDonation(request.id);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Thank you! Response recorded for ${request.patientName}\'s call.'),
+                            backgroundColor: AppTheme.statusOptimal,
+                          ),
+                        );
+                      },
+                    ),
                   );
                 },
                 childCount: activeRequests.length,
