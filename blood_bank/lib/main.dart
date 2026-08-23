@@ -22,6 +22,8 @@ class LifePulseApp extends StatelessWidget {
             themeMode: provider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
+            themeAnimationDuration: const Duration(milliseconds: 350),
+            themeAnimationCurve: Curves.easeInOut,
             home: const MainNavigationScreen(),
           );
         },
