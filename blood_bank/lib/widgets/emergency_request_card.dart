@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/blood_request.dart';
 import '../theme/app_theme.dart';
+import 'animations/press_scale.dart';
 import 'blood_group_badge.dart';
 import 'glass_card.dart';
 
@@ -34,8 +35,10 @@ class EmergencyRequestCard extends StatelessWidget {
         ? 0.0
         : (request.unitsFulfilled / request.unitsNeeded).clamp(0.0, 1.0);
 
-    return GlassCard(
+    return PressScale(
       onTap: onTap,
+      scaleAmount: 0.98,
+      child: GlassCard(
       margin: const EdgeInsets.only(bottom: 14),
       borderColor: request.urgency == UrgencyLevel.critical
           ? AppTheme.statusCritical.withValues(alpha: 0.4)
@@ -46,10 +49,13 @@ class EmergencyRequestCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BloodGroupBadge(
-                group: request.bloodGroup,
-                size: 52,
-                isSelected: true,
+              Hero(
+                tag: 'blood_badge_${request.id}',
+                child: BloodGroupBadge(
+                  group: request.bloodGroup,
+                  size: 52,
+                  isSelected: true,
+                ),
               ),
               const SizedBox(width: 14),
               Expanded(
@@ -160,11 +166,18 @@ class EmergencyRequestCard extends StatelessWidget {
           const SizedBox(height: 6),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: progress,
-              minHeight: 6,
-              backgroundColor: Colors.grey.withValues(alpha: 0.2),
-              valueColor: AlwaysStoppedAnimation<Color>(urgencyColor),
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0, end: progress.toDouble()),
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.easeOutCubic,
+              builder: (context, animatedProgress, child) {
+                return LinearProgressIndicator(
+                  value: animatedProgress,
+                  minHeight: 6,
+                  backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                  valueColor: AlwaysStoppedAnimation<Color>(urgencyColor),
+                );
+              },
             ),
           ),
           const SizedBox(height: 14),
@@ -201,6 +214,7 @@ class EmergencyRequestCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
       ),
     );
   }
