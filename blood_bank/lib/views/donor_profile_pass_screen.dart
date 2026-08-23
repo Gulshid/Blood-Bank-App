@@ -155,9 +155,13 @@ class DonorProfilePassScreen extends StatelessWidget {
                   children: [
                     const Icon(Icons.timer_outlined, color: AppTheme.medicalTealAccent),
                     const SizedBox(width: 10),
-                    const Text(
-                      'Donation Readiness Status',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    const Flexible(
+                      child: Text(
+                        'Donation Readiness Status',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const Spacer(),
                     Container(
