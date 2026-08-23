@@ -47,6 +47,15 @@ class GlassCard extends StatelessWidget {
       child: child,
     );
 
+    // ListTile/InkWell descendants (e.g. CheckboxListTile in the appointment
+    // screening checklist) need a Material ancestor to paint their splash
+    // and background — the surrounding Container's decoration doesn't
+    // provide one, so ink effects would otherwise be invisible/clipped.
+    content = Material(
+      type: MaterialType.transparency,
+      child: content,
+    );
+
     if (margin != null) {
       content = Padding(padding: margin!, child: content);
     }
