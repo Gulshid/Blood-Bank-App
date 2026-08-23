@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/donor_profile.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/blood_group_badge.dart';
@@ -32,7 +31,7 @@ class DonorProfilePassScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.primaryCrimson.withOpacity(0.3),
+                  color: AppTheme.primaryCrimson.withValues(alpha: 0.3),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -161,8 +160,8 @@ class DonorProfilePassScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: user.daysUntilNextEligible == 0
-                            ? AppTheme.statusOptimal.withOpacity(0.15)
-                            : Colors.amber.withOpacity(0.15),
+                            ? AppTheme.statusOptimal.withValues(alpha: 0.15)
+                            : Colors.amber.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
@@ -219,8 +218,8 @@ class DonorProfilePassScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: badge.isUnlocked
-                            ? AppTheme.goldBadge.withOpacity(0.2)
-                            : Colors.grey.withOpacity(0.1),
+                            ? AppTheme.goldBadge.withValues(alpha: 0.2)
+                            : Colors.grey.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -308,7 +307,7 @@ class DonorProfilePassScreen extends StatelessWidget {
                 ],
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );

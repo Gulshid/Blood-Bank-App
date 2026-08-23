@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/blood_group.dart';
 import '../models/blood_request.dart';
 import '../theme/app_theme.dart';
 import 'blood_group_badge.dart';
@@ -39,7 +38,7 @@ class EmergencyRequestCard extends StatelessWidget {
       onTap: onTap,
       margin: const EdgeInsets.only(bottom: 14),
       borderColor: request.urgency == UrgencyLevel.critical
-          ? AppTheme.statusCritical.withOpacity(0.4)
+          ? AppTheme.statusCritical.withValues(alpha: 0.4)
           : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +64,7 @@ class EmergencyRequestCard extends StatelessWidget {
                             vertical: 3,
                           ),
                           decoration: BoxDecoration(
-                            color: urgencyColor.withOpacity(0.18),
+                            color: urgencyColor.withValues(alpha: 0.18),
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(color: urgencyColor, width: 1),
                           ),
@@ -121,7 +120,7 @@ class EmergencyRequestCard extends StatelessWidget {
                         fontSize: 13,
                         color: Theme.of(
                           context,
-                        ).textTheme.bodyMedium?.color?.withOpacity(0.8),
+                        ).textTheme.bodyMedium?.color?.withValues(alpha: 0.8),
                       ),
                     ),
                   ],
@@ -164,7 +163,7 @@ class EmergencyRequestCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress,
               minHeight: 6,
-              backgroundColor: Colors.grey.withOpacity(0.2),
+              backgroundColor: Colors.grey.withValues(alpha: 0.2),
               valueColor: AlwaysStoppedAnimation<Color>(urgencyColor),
             ),
           ),

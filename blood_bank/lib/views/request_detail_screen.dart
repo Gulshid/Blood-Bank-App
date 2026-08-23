@@ -88,8 +88,8 @@ class RequestDetailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: isUserCompatible
-                  ? AppTheme.statusOptimal.withOpacity(0.15)
-                  : Colors.orange.withOpacity(0.15),
+                  ? AppTheme.statusOptimal.withValues(alpha: 0.15)
+                  : Colors.orange.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isUserCompatible

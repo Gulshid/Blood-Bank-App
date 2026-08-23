@@ -55,7 +55,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ...userAppointments.map((app) {
               return GlassCard(
                 margin: const EdgeInsets.only(bottom: 12),
-                borderColor: AppTheme.medicalTealAccent.withOpacity(0.4),
+                borderColor: AppTheme.medicalTealAccent.withValues(alpha: 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,7 +75,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
-                            color: AppTheme.statusOptimal.withOpacity(0.15),
+                            color: AppTheme.statusOptimal.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: const Text(
@@ -106,7 +106,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   ],
                 ),
               );
-            }).toList(),
+            }),
             const Divider(height: 30),
           ],
 
@@ -118,7 +118,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
           // Center Picker
           DropdownButtonFormField<String>(
-            value: centers.any((c) => c.name == _selectedCenter)
+            initialValue: centers.any((c) => c.name == _selectedCenter)
                 ? _selectedCenter
                 : centers.first.name,
             decoration: const InputDecoration(
@@ -142,7 +142,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
           // Donation Type
           DropdownButtonFormField<String>(
-            value: _selectedType,
+            initialValue: _selectedType,
             decoration: const InputDecoration(
               labelText: 'Donation Component Type',
               prefixIcon: Icon(Icons.bloodtype),

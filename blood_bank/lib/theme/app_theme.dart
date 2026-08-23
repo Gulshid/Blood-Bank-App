@@ -44,7 +44,6 @@ class AppTheme {
         primary: primaryCrimson,
         secondary: medicalTeal,
         surface: darkSurface,
-        background: darkBackground,
         error: statusCritical,
       ),
       appBarTheme: const AppBarTheme(
@@ -103,7 +102,6 @@ class AppTheme {
         primary: primaryCrimson,
         secondary: medicalTeal,
         surface: lightSurface,
-        background: lightBackground,
         error: statusCritical,
       ),
       appBarTheme: const AppBarTheme(

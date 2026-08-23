@@ -30,8 +30,8 @@ class BloodGroupBadge extends StatelessWidget {
               ? AppTheme.primaryGradient
               : LinearGradient(
                   colors: [
-                    AppTheme.primaryCrimson.withOpacity(0.15),
-                    AppTheme.primaryCrimsonDark.withOpacity(0.25),
+                    AppTheme.primaryCrimson.withValues(alpha: 0.15),
+                    AppTheme.primaryCrimsonDark.withValues(alpha: 0.25),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -39,13 +39,13 @@ class BloodGroupBadge extends StatelessWidget {
           border: Border.all(
             color: isSelected
                 ? Colors.white
-                : AppTheme.primaryCrimson.withOpacity(0.4),
+                : AppTheme.primaryCrimson.withValues(alpha: 0.4),
             width: isSelected ? 2.5 : 1.5,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppTheme.primaryCrimson.withOpacity(0.5),
+                    color: AppTheme.primaryCrimson.withValues(alpha: 0.5),
                     blurRadius: 10,
                     spreadRadius: 1,
                   )

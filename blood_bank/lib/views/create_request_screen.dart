@@ -54,7 +54,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
           padding: const EdgeInsets.all(16),
           children: [
             GlassCard(
-              borderColor: AppTheme.statusCritical.withOpacity(0.4),
+              borderColor: AppTheme.statusCritical.withValues(alpha: 0.4),
               child: Row(
                 children: [
                   const Icon(
@@ -117,7 +117,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: AppTheme.medicalTeal.withOpacity(0.15),
+                color: AppTheme.medicalTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(

@@ -76,7 +76,7 @@ class BloodInventoryScreen extends StatelessWidget {
                 );
               },
             );
-          }).toList(),
+          }),
         ],
       ),
     );

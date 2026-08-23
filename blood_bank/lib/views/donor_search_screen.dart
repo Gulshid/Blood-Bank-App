@@ -79,7 +79,7 @@ class DonorSearchScreen extends StatelessWidget {
                     Switch(
                       value: provider.showOnlyAvailableDonors,
                       onChanged: provider.toggleAvailableOnlyFilter,
-                      activeColor: AppTheme.primaryCrimson,
+                      activeThumbColor: AppTheme.primaryCrimson,
                     ),
                     const Text(
                       'Available Only',
@@ -107,7 +107,7 @@ class DonorSearchScreen extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.medicalTeal.withOpacity(0.15),
+                  color: AppTheme.medicalTeal.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppTheme.medicalTeal, width: 1),
                 ),

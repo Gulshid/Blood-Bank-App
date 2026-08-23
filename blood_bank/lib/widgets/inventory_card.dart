@@ -29,7 +29,7 @@ class InventoryCard extends StatelessWidget {
 
     return GlassCard(
       margin: const EdgeInsets.only(bottom: 14),
-      borderColor: hasWarning ? AppTheme.statusCritical.withOpacity(0.4) : null,
+      borderColor: hasWarning ? AppTheme.statusCritical.withValues(alpha: 0.4) : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,7 +38,7 @@ class InventoryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppTheme.medicalTeal.withOpacity(0.15),
+                  color: AppTheme.medicalTeal.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -86,7 +86,7 @@ class InventoryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: AppTheme.primaryCrimson.withOpacity(0.15),
+                  color: AppTheme.primaryCrimson.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
@@ -123,7 +123,7 @@ class InventoryCard extends StatelessWidget {
                       : Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: stockColor.withOpacity(0.6),
+                    color: stockColor.withValues(alpha: 0.6),
                     width: 1,
                   ),
                 ),

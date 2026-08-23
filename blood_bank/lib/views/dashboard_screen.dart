@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/blood_group.dart';
-import '../models/blood_request.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/blood_group_badge.dart';
@@ -116,7 +114,7 @@ class DashboardScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${user.daysUntilNextEligible == 0 ? "You are eligible to donate today!" : "Next eligible donation in ${user.daysUntilNextEligible} days"}',
+                                user.daysUntilNextEligible == 0 ? "You are eligible to donate today!" : "Next eligible donation in ${user.daysUntilNextEligible} days",
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: user.daysUntilNextEligible == 0
@@ -233,7 +231,7 @@ class DashboardScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: AppTheme.statusCritical.withOpacity(0.15),
+                          color: AppTheme.statusCritical.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Row(

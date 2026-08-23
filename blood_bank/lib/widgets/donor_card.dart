@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/blood_group.dart';
 import '../models/donor_profile.dart';
 import '../theme/app_theme.dart';
 import 'blood_group_badge.dart';
@@ -77,8 +76,8 @@ class DonorCard extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: isAvailable
-                        ? AppTheme.statusOptimal.withOpacity(0.15)
-                        : Colors.orange.withOpacity(0.15),
+                        ? AppTheme.statusOptimal.withValues(alpha: 0.15)
+                        : Colors.orange.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
@@ -113,7 +112,7 @@ class DonorCard extends StatelessWidget {
                 icon: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryCrimson.withOpacity(0.15),
+                    color: AppTheme.primaryCrimson.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
