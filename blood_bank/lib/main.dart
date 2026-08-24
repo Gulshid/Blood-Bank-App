@@ -1,53 +1,43 @@
-import 'package:blood_bank/providers/app_provider.dart';
 import 'package:blood_bank/theme/app_theme.dart';
-import 'package:blood_bank/views/main_navigation_screen.dart';
+import 'package:blood_bank/views/compatibility_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-  runApp(const LifePulseApp());
+  runApp(const BloodCompatibilityApp());
 }
 
-class LifePulseApp extends StatelessWidget {
-  const LifePulseApp({super.key});
+class BloodCompatibilityApp extends StatelessWidget {
+  const BloodCompatibilityApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AppProviderWidget(
-      child: Builder(
-        builder: (context) {
-          final provider = AppProvider.of(context);
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return ScreenUtilInit(
-                designSize: _getDesignSize(constraints.maxWidth),
-                minTextAdapt: true,
-                splitScreenMode: true,
-                builder: (context, _) {
-                  return MaterialApp(
-                    title: 'LifePulse - Blood Bank & Donor Network',
-                    debugShowCheckedModeBanner: false,
-                    themeMode:
-                        provider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-                    theme: AppTheme.lightTheme,
-                    darkTheme: AppTheme.darkTheme,
-                    themeAnimationDuration: const Duration(milliseconds: 350),
-                    themeAnimationCurve: Curves.easeInOut,
-                    builder: (context, child) {
-                      return MediaQuery(
-                        data: MediaQuery.of(context)
-                            .copyWith(textScaler: TextScaler.noScaling),
-                        child: child!,
-                      );
-                    },
-                    home: const MainNavigationScreen(),
-                  );
-                },
-              );
-            },
-          );
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ScreenUtilInit(
+          designSize: _getDesignSize(constraints.maxWidth),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, _) {
+            return MaterialApp(
+              title: 'Blood Compatibility Explorer',
+              debugShowCheckedModeBanner: false,
+              themeMode: ThemeMode.system,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeAnimationDuration: const Duration(milliseconds: 350),
+              themeAnimationCurve: Curves.easeInOut,
+              builder: (context, child) {
+                return MediaQuery(
+                  data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
+                  child: child!,
+                );
+              },
+              home: const CompatibilityScreen(),
+            );
+          },
+        );
+      },
     );
   }
 }
