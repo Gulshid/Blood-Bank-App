@@ -22,6 +22,11 @@ class GlassCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    // ListTile/InkWell descendants (e.g. CheckboxListTile in the appointment
+    // screening checklist) need a Material ancestor to paint their splash
+    // and background. It must sit INSIDE the colored Container — a Material
+    // wrapped around the outside still leaves the Container's DecoratedBox
+    // between the ListTile and the Material, which triggers the same warning.
     Widget content = Container(
       padding: padding ?? const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -44,16 +49,10 @@ class GlassCard extends StatelessWidget {
           ),
         ],
       ),
-      child: child,
-    );
-
-    // ListTile/InkWell descendants (e.g. CheckboxListTile in the appointment
-    // screening checklist) need a Material ancestor to paint their splash
-    // and background — the surrounding Container's decoration doesn't
-    // provide one, so ink effects would otherwise be invisible/clipped.
-    content = Material(
-      type: MaterialType.transparency,
-      child: content,
+      child: Material(
+        type: MaterialType.transparency,
+        child: child,
+      ),
     );
 
     if (margin != null) {
