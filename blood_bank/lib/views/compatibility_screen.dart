@@ -72,12 +72,17 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
     showModalBottomSheet(
       context: context,
       backgroundColor: isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
       ),
-      builder: (context) {
-        return Padding(
-          padding: EdgeInsets.fromLTRB(22.w, 14.h, 22.w, 28.h),
+      builder: (sheetContext) {
+        final maxHeight = MediaQuery.of(sheetContext).size.height * 0.85;
+        final bottomInset = MediaQuery.of(sheetContext).padding.bottom;
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: maxHeight),
+          child: SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(22.w, 14.h, 22.w, 28.h + bottomInset),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,12 +134,13 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.of(sheetContext).pop(),
                   child: const Text('Got it'),
                 ),
               ),
             ],
           ),
+        ),
         );
       },
     );
@@ -168,76 +174,85 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
     final stageSize = math.min(1.sw, 400.w) - 32.w;
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight + 6.h),
-        child: Container(
-          decoration: const BoxDecoration(gradient: AppTheme.primaryGradient),
-          child: SafeArea(
-            bottom: false,
-            child: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              centerTitle: false,
-              titleSpacing: 4.w,
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.16),
-                      shape: BoxShape.circle,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(25.r),
+            bottomRight: Radius.circular(25.r),
+          ),
+          child: Container(
+            decoration: const BoxDecoration(gradient: AppTheme.primaryGradient),
+            child: SafeArea(
+              bottom: false,
+              child: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                centerTitle: false,
+                titleSpacing: 4.w,
+                title: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(6.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.16),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.water_drop_rounded,
+                          color: Colors.white, size: 17.w),
                     ),
-                    child: Icon(Icons.water_drop_rounded,
-                        color: Colors.white, size: 17.w),
-                  ),
-                  SizedBox(width: 10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Blood Compatibility',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
+                    SizedBox(width: 10.w),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Blood Compatibility',
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        '8 groups · ABO & Rh system',
-                        style: TextStyle(
-                          fontSize: 10.5.sp,
-                          color: Colors.white70,
+                        Text(
+                          '8 groups · ABO & Rh system',
+                          style: TextStyle(
+                            fontSize: 10.5.sp,
+                            color: Colors.white70,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ],
+                ),
+                actions: [
+                  if (_selected != null)
+                    IconButton(
+                      tooltip: 'Reset',
+                      icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                      onPressed: _clearSelection,
+                    ),
+                  IconButton(
+                    tooltip: 'About',
+                    icon: const Icon(Icons.info_outline_rounded, color: Colors.white),
+                    onPressed: _showAboutSheet,
                   ),
+                  SizedBox(width: 4.w),
                 ],
               ),
-              actions: [
-                if (_selected != null)
-                  IconButton(
-                    tooltip: 'Reset',
-                    icon: const Icon(Icons.refresh_rounded, color: Colors.white),
-                    onPressed: _clearSelection,
-                  ),
-                IconButton(
-                  tooltip: 'About',
-                  icon: const Icon(Icons.info_outline_rounded, color: Colors.white),
-                  onPressed: _showAboutSheet,
-                ),
-                SizedBox(width: 4.w),
-              ],
             ),
           ),
         ),
       ),
       body: SafeArea(
-        top: false,
         child: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 12.h),
+          padding: EdgeInsets.fromLTRB(
+            16.w,
+            16.h,
+            16.w,
+            24.h + MediaQuery.of(context).padding.bottom,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
