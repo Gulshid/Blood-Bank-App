@@ -67,7 +67,10 @@ class BloodGroupNode extends StatelessWidget {
         break;
     }
 
-    return GestureDetector(
+    return Tooltip(
+      message: '${group.label} · tap to see compatibility',
+      preferBelow: false,
+      child: GestureDetector(
       onTap: onTap,
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 220),
@@ -113,6 +116,7 @@ class BloodGroupNode extends StatelessWidget {
             ),
           ),
         ),
+      ),
       ),
     );
   }

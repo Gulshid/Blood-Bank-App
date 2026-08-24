@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_group.dart';
 import '../theme/app_theme.dart';
@@ -35,8 +36,16 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
   }
 
   void _select(BloodGroup group) {
+    HapticFeedback.selectionClick();
+    if (_selected == group) return;
     setState(() => _selected = group);
     _controller.forward(from: 0);
+  }
+
+  void _clearSelection() {
+    HapticFeedback.lightImpact();
+    setState(() => _selected = null);
+    _controller.reset();
   }
 
   Offset _nodePosition(int index, int count, Size stage) {
@@ -58,16 +67,177 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
     return NodeRole.dim;
   }
 
+  void _showAboutSheet() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: isDark ? AppTheme.darkSurface : AppTheme.lightSurface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.fromLTRB(22.w, 14.h, 22.w, 28.h),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40.w,
+                  height: 4.h,
+                  decoration: BoxDecoration(
+                    color: isDark ? Colors.white24 : Colors.black12,
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
+              ),
+              SizedBox(height: 18.h),
+              Row(
+                children: [
+                  Icon(Icons.info_outline_rounded,
+                      color: AppTheme.primaryCrimson, size: 20.w),
+                  SizedBox(width: 8.w),
+                  Text(
+                    'How compatibility works',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w800,
+                      color: isDark ? Colors.white : Colors.black87,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12.h),
+              _aboutLine(
+                isDark,
+                'Blood type is determined by the ABO group (A, B, AB, O) plus the Rh factor (+ or −).',
+              ),
+              _aboutLine(
+                isDark,
+                'O- is the universal donor — safe for any patient. AB+ is the universal recipient — can receive from anyone.',
+              ),
+              _aboutLine(
+                isDark,
+                'Rh-negative blood can generally go to both Rh-negative and Rh-positive recipients; Rh-positive blood can only go to Rh-positive recipients.',
+              ),
+              _aboutLine(
+                isDark,
+                'This screen shows red-cell donation rules for general education — always confirm with a lab crossmatch before any real transfusion.',
+              ),
+              SizedBox(height: 6.h),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Got it'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _aboutLine(bool isDark, String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('•  ', style: TextStyle(color: isDark ? Colors.white38 : Colors.black38)),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 13.sp,
+                height: 1.5,
+                color: isDark ? Colors.white70 : Colors.black54,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final stageSize = math.min(1.sw, 400.w) - 32.w;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Blood Compatibility')),
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(kToolbarHeight + 6.h),
+        child: Container(
+          decoration: const BoxDecoration(gradient: AppTheme.primaryGradient),
+          child: SafeArea(
+            bottom: false,
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: false,
+              titleSpacing: 4.w,
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(6.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.16),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.water_drop_rounded,
+                        color: Colors.white, size: 17.w),
+                  ),
+                  SizedBox(width: 10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Blood Compatibility',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        '8 groups · ABO & Rh system',
+                        style: TextStyle(
+                          fontSize: 10.5.sp,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: [
+                if (_selected != null)
+                  IconButton(
+                    tooltip: 'Reset',
+                    icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+                    onPressed: _clearSelection,
+                  ),
+                IconButton(
+                  tooltip: 'About',
+                  icon: const Icon(Icons.info_outline_rounded, color: Colors.white),
+                  onPressed: _showAboutSheet,
+                ),
+                SizedBox(width: 4.w),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
+        top: false,
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 12.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -80,6 +250,8 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
                   height: 1.4,
                 ),
               ),
+              SizedBox(height: 14.h),
+              _quickShortcuts(isDark),
               SizedBox(height: 18.h),
               Center(
                 child: SizedBox(
@@ -117,7 +289,26 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
                       }
 
                       return Stack(
+                        alignment: Alignment.center,
                         children: [
+                          // Soft ambient glow behind the hub once something is selected.
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: _selected == null ? 0 : 1,
+                            child: Container(
+                              width: stage.width * 0.75,
+                              height: stage.height * 0.75,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: RadialGradient(
+                                  colors: [
+                                    AppTheme.primaryCrimson.withValues(alpha: 0.16),
+                                    Colors.transparent,
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           AnimatedBuilder(
                             animation: _controller,
                             builder: (context, _) {
@@ -155,6 +346,89 @@ class _CompatibilityScreenState extends State<CompatibilityScreen>
           ),
         ),
       ),
+    );
+  }
+
+  Widget _quickShortcuts(bool isDark) {
+    Widget shortcut({
+      required String label,
+      required String sub,
+      required BloodGroup group,
+      required IconData icon,
+    }) {
+      final active = _selected == group;
+      return Expanded(
+        child: GestureDetector(
+          onTap: () => _select(group),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+            decoration: BoxDecoration(
+              color: active
+                  ? AppTheme.primaryCrimson.withValues(alpha: 0.12)
+                  : (isDark ? AppTheme.darkCardSurface : AppTheme.lightCardSurface),
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(
+                color: active
+                    ? AppTheme.primaryCrimson
+                    : (isDark ? Colors.white12 : Colors.black12),
+                width: active ? 1.4 : 1,
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(icon,
+                    size: 16.w,
+                    color: active
+                        ? AppTheme.primaryCrimson
+                        : (isDark ? Colors.white54 : Colors.black45)),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '$label · ${group.label}',
+                        style: TextStyle(
+                          fontSize: 11.5.sp,
+                          fontWeight: FontWeight.w700,
+                          color: isDark ? Colors.white : Colors.black87,
+                        ),
+                      ),
+                      Text(
+                        sub,
+                        style: TextStyle(
+                          fontSize: 9.5.sp,
+                          color: isDark ? Colors.white38 : Colors.black38,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Row(
+      children: [
+        shortcut(
+          label: 'Universal donor',
+          sub: 'Gives to everyone',
+          group: BloodGroup.oNeg,
+          icon: Icons.arrow_upward_rounded,
+        ),
+        SizedBox(width: 10.w),
+        shortcut(
+          label: 'Universal recipient',
+          sub: 'Receives from everyone',
+          group: BloodGroup.abPos,
+          icon: Icons.arrow_downward_rounded,
+        ),
+      ],
     );
   }
 
