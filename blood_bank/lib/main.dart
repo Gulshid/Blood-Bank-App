@@ -1,5 +1,5 @@
 import 'package:blood_bank/theme/app_theme.dart';
-import 'package:blood_bank/views/compatibility_screen.dart';
+import 'package:blood_bank/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +33,7 @@ class BloodCompatibilityApp extends StatelessWidget {
                   child: child!,
                 );
               },
-              home: const CompatibilityScreen(),
+              home: const SplashScreen(),
             );
           },
         );
