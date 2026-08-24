@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
 import '../widgets/animations/animated_counter.dart';
@@ -19,23 +20,23 @@ class DonorProfilePassScreen extends StatelessWidget {
         title: const Text('Digital Donor Pass & Impact'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         children: [
           // Digital Passcard Design
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20.r),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFF8E0E00), Color(0xFF1F1C1C)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
               boxShadow: [
                 BoxShadow(
                   color: AppTheme.primaryCrimson.withValues(alpha: 0.3),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
+                  blurRadius: 15.r,
+                  offset: Offset(0, 8.h),
                 ),
               ],
               border: Border.all(color: Colors.white24, width: 1),
@@ -46,14 +47,14 @@ class DonorProfilePassScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Row(
+                    Row(
                       children: [
-                        Icon(Icons.health_and_safety, color: Colors.white, size: 24),
-                        SizedBox(width: 8),
+                        Icon(Icons.health_and_safety, color: Colors.white, size: 24.sp),
+                        SizedBox(width: 8.w),
                         Text(
                           'LIFEPULSE DONOR PASS',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.2,
                             color: Colors.white,
@@ -63,45 +64,45 @@ class DonorProfilePassScreen extends StatelessWidget {
                     ),
                     BloodGroupBadge(
                       group: user.bloodGroup,
-                      size: 42,
+                      size: 42.r,
                       isSelected: true,
                     ),
                   ],
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24.h),
                 Text(
                   user.name,
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style: TextStyle(
+                    fontSize: 22.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: 4.h),
                 Text(
                   'Pass ID: ${user.donorPassCode}',
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: 12.sp,
                     color: Colors.white70,
                     letterSpacing: 1.0,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'TOTAL DONATIONS',
-                          style: TextStyle(fontSize: 10, color: Colors.white60),
+                          style: TextStyle(fontSize: 10.sp, color: Colors.white60),
                         ),
                         AnimatedCounter(
                           value: user.totalDonationsCount,
                           suffix: ' Times',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -111,15 +112,15 @@ class DonorProfilePassScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'LIVES IMPACTED',
-                          style: TextStyle(fontSize: 10, color: Colors.white60),
+                          style: TextStyle(fontSize: 10.sp, color: Colors.white60),
                         ),
                         AnimatedCounter(
                           value: user.livesSavedEstimate,
                           suffix: ' Lives',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: AppTheme.statusOptimal,
                           ),
@@ -128,14 +129,14 @@ class DonorProfilePassScreen extends StatelessWidget {
                     ),
                     // Simulated QR Code Symbol
                     Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8.r),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(8.r),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.qr_code_2,
-                        size: 36,
+                        size: 36.sp,
                         color: Colors.black87,
                       ),
                     ),
@@ -144,7 +145,7 @@ class DonorProfilePassScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Donation Eligibility Countdown
           GlassCard(
@@ -154,30 +155,30 @@ class DonorProfilePassScreen extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.timer_outlined, color: AppTheme.medicalTealAccent),
-                    const SizedBox(width: 10),
-                    const Flexible(
+                    SizedBox(width: 10.w),
+                    Flexible(
                       child: Text(
                         'Donation Readiness Status',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                       decoration: BoxDecoration(
                         color: user.daysUntilNextEligible == 0
                             ? AppTheme.statusOptimal.withValues(alpha: 0.15)
                             : Colors.amber.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(6.r),
                       ),
                       child: Text(
                         user.daysUntilNextEligible == 0
                             ? 'READY NOW'
                             : 'REST PERIOD',
                         style: TextStyle(
-                          fontSize: 11,
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.bold,
                           color: user.daysUntilNextEligible == 0
                               ? AppTheme.statusOptimal
@@ -187,24 +188,24 @@ class DonorProfilePassScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Text(
                   user.daysUntilNextEligible == 0
                       ? 'You are fully eligible to donate blood or platelets today!'
                       : 'You can donate again in ${user.daysUntilNextEligible} days.',
-                  style: const TextStyle(fontSize: 13),
+                  style: TextStyle(fontSize: 13.sp),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Achievements & Hero Badges
-          const Text(
+          Text(
             'Hero Achievements',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           GridView.builder(
             shrinkWrap: true,
@@ -222,11 +223,11 @@ class DonorProfilePassScreen extends StatelessWidget {
                 index: index,
                 offsetY: 14,
                 child: GlassCard(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.r),
                 child: Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8.r),
                       decoration: BoxDecoration(
                         color: badge.isUnlocked
                             ? AppTheme.goldBadge.withValues(alpha: 0.2)
@@ -236,10 +237,10 @@ class DonorProfilePassScreen extends StatelessWidget {
                       child: Icon(
                         badge.isUnlocked ? Icons.stars : Icons.lock_outline,
                         color: badge.isUnlocked ? AppTheme.goldBadge : Colors.grey,
-                        size: 20,
+                        size: 20.sp,
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,18 +249,18 @@ class DonorProfilePassScreen extends StatelessWidget {
                           Text(
                             badge.title,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               fontWeight: FontWeight.bold,
                               color: badge.isUnlocked ? null : Colors.grey,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 2),
+                          SizedBox(height: 2.h),
                           Text(
                             badge.description,
-                            style: const TextStyle(
-                              fontSize: 10,
+                            style: TextStyle(
+                              fontSize: 10.sp,
                               color: Colors.grey,
                             ),
                             maxLines: 2,
@@ -274,14 +275,14 @@ class DonorProfilePassScreen extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // History log
-          const Text(
+          Text(
             'Donation History',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           ...user.donationHistory.asMap().entries.map((entry) {
             final index = entry.key;
@@ -290,34 +291,34 @@ class DonorProfilePassScreen extends StatelessWidget {
               index: index,
               offsetY: 14,
               child: GlassCard(
-              margin: const EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: 10.h),
               child: Row(
                 children: [
-                  const Icon(Icons.water_drop, color: AppTheme.primaryCrimson, size: 24),
-                  const SizedBox(width: 12),
+                  Icon(Icons.water_drop, color: AppTheme.primaryCrimson, size: 24.sp),
+                  SizedBox(width: 12.w),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           rec.location,
-                          style: const TextStyle(
-                            fontSize: 14,
+                          style: TextStyle(
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         Text(
                           '${rec.donationType} • ${rec.volumeMl} ml',
-                          style: const TextStyle(fontSize: 12, color: Colors.grey),
+                          style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                         ),
                       ],
                     ),
                   ),
                   Text(
                     '${rec.date.day}/${rec.date.month}/${rec.date.year}',
-                    style: const TextStyle(
-                      fontSize: 12,
+                    style: TextStyle(
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

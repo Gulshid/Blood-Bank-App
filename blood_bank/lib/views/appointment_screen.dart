@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/appointment.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
@@ -43,18 +44,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         title: const Text('Schedule Donation Appointment'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         children: [
           // Active appointments section
           if (userAppointments.isNotEmpty) ...[
-            const Text(
+            Text(
               'Your Scheduled Appointments',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             ...userAppointments.map((app) {
               return GlassCard(
-                margin: const EdgeInsets.only(bottom: 12),
+                margin: EdgeInsets.only(bottom: 12.h),
                 borderColor: AppTheme.medicalTealAccent.withValues(alpha: 0.4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,26 +63,26 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     Row(
                       children: [
                         const Icon(Icons.event_available, color: AppTheme.medicalTealAccent),
-                        const SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Expanded(
                           child: Text(
                             app.centerName,
-                            style: const TextStyle(
-                              fontSize: 15,
+                            style: TextStyle(
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                           decoration: BoxDecoration(
                             color: AppTheme.statusOptimal.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                           ),
-                          child: const Text(
+                          child: Text(
                             'CONFIRMED',
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                               color: AppTheme.statusOptimal,
                             ),
@@ -89,32 +90,32 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
                       'Booking Ref: ${app.bookingConfirmationCode}',
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                         color: AppTheme.primaryCrimson,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: 4.h),
                     Text(
                       'Date: ${app.appointmentDateTime.day}/${app.appointmentDateTime.month}/${app.appointmentDateTime.year} at ${app.appointmentDateTime.hour.toString().padLeft(2, '0')}:${app.appointmentDateTime.minute.toString().padLeft(2, '0')}',
-                      style: const TextStyle(fontSize: 13),
+                      style: TextStyle(fontSize: 13.sp),
                     ),
                   ],
                 ),
               );
             }),
-            const Divider(height: 30),
+            Divider(height: 30.h),
           ],
 
-          const Text(
+          Text(
             'Book a New Appointment Slot',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           // Center Picker
           DropdownButtonFormField<String>(
@@ -139,7 +140,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               if (val != null) setState(() => _selectedCenter = val);
             },
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14.h),
 
           // Donation Type
           DropdownButtonFormField<String>(
@@ -167,7 +168,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               if (val != null) setState(() => _selectedType = val);
             },
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
 
           // Date & Time Picker Buttons
           Row(
@@ -183,13 +184,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     );
                     if (picked != null) setState(() => _selectedDate = picked);
                   },
-                  icon: const Icon(Icons.calendar_today, size: 16),
+                  icon: Icon(Icons.calendar_today, size: 16.sp),
                   label: Text(
                     '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.w),
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: () async {
@@ -199,52 +200,52 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     );
                     if (picked != null) setState(() => _selectedTime = picked);
                   },
-                  icon: const Icon(Icons.access_time, size: 16),
+                  icon: Icon(Icons.access_time, size: 16.sp),
                   label: Text(_selectedTime.format(context)),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           // Pre-Screening Quiz Checklist
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Pre-Donation Medical Checklist',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 4),
-                const Text(
+                SizedBox(height: 4.h),
+                Text(
                   'Please verify health criteria before booking:',
-                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                  style: TextStyle(fontSize: 11.sp, color: Colors.grey),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 CheckboxListTile(
-                  title: const Text('Body weight is above 50 kg (110 lbs)', style: TextStyle(fontSize: 13)),
+                  title: Text('Body weight is above 50 kg (110 lbs)', style: TextStyle(fontSize: 13.sp)),
                   value: _weightCheck,
                   onChanged: (v) => setState(() => _weightCheck = v ?? false),
                   activeColor: AppTheme.primaryCrimson,
                   dense: true,
                 ),
                 CheckboxListTile(
-                  title: const Text('No antibiotics/major medications in last 7 days', style: TextStyle(fontSize: 13)),
+                  title: Text('No antibiotics/major medications in last 7 days', style: TextStyle(fontSize: 13.sp)),
                   value: _medicationCheck,
                   onChanged: (v) => setState(() => _medicationCheck = v ?? false),
                   activeColor: AppTheme.primaryCrimson,
                   dense: true,
                 ),
                 CheckboxListTile(
-                  title: const Text('No tattoo or body piercing in last 6 months', style: TextStyle(fontSize: 13)),
+                  title: Text('No tattoo or body piercing in last 6 months', style: TextStyle(fontSize: 13.sp)),
                   value: _tattooCheck,
                   onChanged: (v) => setState(() => _tattooCheck = v ?? false),
                   activeColor: AppTheme.primaryCrimson,
                   dense: true,
                 ),
                 CheckboxListTile(
-                  title: const Text('Feeling healthy and well today with good sleep', style: TextStyle(fontSize: 13)),
+                  title: Text('Feeling healthy and well today with good sleep', style: TextStyle(fontSize: 13.sp)),
                   value: _healthCheck,
                   onChanged: (v) => setState(() => _healthCheck = v ?? false),
                   activeColor: AppTheme.primaryCrimson,
@@ -253,7 +254,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           ElevatedButton.icon(
             onPressed: isEligible
@@ -291,7 +292,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             icon: const Icon(Icons.bookmark_added),
             label: const Text('Confirm Appointment Booking'),
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: EdgeInsets.symmetric(vertical: 16.h),
               backgroundColor: AppTheme.medicalTeal,
             ),
           ),

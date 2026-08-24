@@ -1,5 +1,6 @@
 import 'package:blood_bank/models/blood_group.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_request.dart';
 import '../providers/app_provider.dart';
 import '../services/compatibility_engine.dart';
@@ -31,7 +32,7 @@ class RequestDetailScreen extends StatelessWidget {
         title: const Text('Emergency Call Details'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         children: [
           GlassCard(
             borderColor: request.urgency == UrgencyLevel.critical
@@ -43,36 +44,36 @@ class RequestDetailScreen extends StatelessWidget {
                   tag: 'blood_badge_${request.id}',
                   child: BloodGroupBadge(
                     group: request.bloodGroup,
-                    size: 64,
+                    size: 64.r,
                     isSelected: true,
                   ),
                 ),
-                const SizedBox(width: 16),
+                SizedBox(width: 16.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Patient: ${request.patientName}',
-                        style: const TextStyle(
-                          fontSize: 18,
+                        style: TextStyle(
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         'Required Group: ${request.bloodGroup.fullDescription}',
-                        style: const TextStyle(
-                          fontSize: 13,
+                        style: TextStyle(
+                          fontSize: 13.sp,
                           color: AppTheme.primaryCrimson,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4.h),
                       Text(
                         'Priority: ${request.urgency.label}',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.bold,
                           color: request.urgency == UrgencyLevel.critical
                               ? AppTheme.statusCritical
@@ -85,15 +86,15 @@ class RequestDetailScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           Container(
-            padding: const EdgeInsets.all(14),
+            padding: EdgeInsets.all(14.r),
             decoration: BoxDecoration(
               color: isUserCompatible
                   ? AppTheme.statusOptimal.withValues(alpha: 0.15)
                   : Colors.orange.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
                 color: isUserCompatible
                     ? AppTheme.statusOptimal
@@ -108,99 +109,99 @@ class RequestDetailScreen extends StatelessWidget {
                       ? AppTheme.statusOptimal
                       : Colors.orange,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
                     isUserCompatible
                         ? 'Your blood type (${user.bloodGroup.label}) is medically compatible to donate for this patient!'
                         : 'Your blood type (${user.bloodGroup.label}) is not directly compatible with ${request.bloodGroup.label}. However, you can share this request with matching donors.',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
 
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
-                  children: [
-                    Icon(Icons.local_hospital, color: AppTheme.medicalTealAccent),
-                    SizedBox(width: 8),
-                    Text(
-                      'Hospital Location',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  request.hospitalName,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  request.hospitalAddress,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                ),
-                const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.near_me, size: 14, color: AppTheme.medicalTeal),
-                    const SizedBox(width: 4),
+                    Icon(Icons.local_hospital, color: AppTheme.medicalTealAccent),
+                    SizedBox(width: 8.w),
+                    Text(
+                      'Hospital Location',
+                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10.h),
+                Text(
+                  request.hospitalName,
+                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  request.hospitalAddress,
+                  style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                ),
+                SizedBox(height: 8.h),
+                Row(
+                  children: [
+                    Icon(Icons.near_me, size: 14.sp, color: AppTheme.medicalTeal),
+                    SizedBox(width: 4.w),
                     Text(
                       'Distance: ${request.distanceKm.toStringAsFixed(1)} km from your current location',
-                      style: const TextStyle(fontSize: 12, color: AppTheme.medicalTealAccent),
+                      style: TextStyle(fontSize: 12.sp, color: AppTheme.medicalTealAccent),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.medical_information, color: AppTheme.primaryCrimson),
-                    SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     Text(
                       'Medical Case Notes',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 Text(
                   request.medicalReason,
-                  style: const TextStyle(fontSize: 13, height: 1.4),
+                  style: TextStyle(fontSize: 13.sp, height: 1.4),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           GlassCard(
             child: Row(
               children: [
                 const Icon(Icons.hub_outlined, color: Colors.amber),
-                const SizedBox(width: 10),
+                SizedBox(width: 10.w),
                 Expanded(
                   child: Text(
                     '${matchingDonors.length} registered donors found in network compatible with ${request.bloodGroup.label}',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
           Row(
             children: [
@@ -216,11 +217,11 @@ class RequestDetailScreen extends StatelessWidget {
                   icon: const Icon(Icons.phone),
                   label: const Text('Call Hospital'),
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: () {
@@ -237,7 +238,7 @@ class RequestDetailScreen extends StatelessWidget {
                   icon: const Icon(Icons.volunteer_activism),
                   label: const Text('Pledge Donation'),
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                     backgroundColor: AppTheme.primaryCrimson,
                   ),
                 ),

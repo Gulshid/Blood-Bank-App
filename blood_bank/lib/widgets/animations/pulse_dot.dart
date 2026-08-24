@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// A small circular dot that continuously pulses (scale + glow fade)
 /// to draw attention to "live"/critical status without being distracting.
@@ -43,9 +44,10 @@ class _PulseDotState extends State<PulseDot>
         final t = _controller.value; // 0..1
         final scale = 1.0 + (t * 1.8);
         final opacity = (1.0 - t).clamp(0.0, 1.0);
+        final dotSize = widget.size.r;
         return SizedBox(
-          width: widget.size * 3,
-          height: widget.size * 3,
+          width: dotSize * 3,
+          height: dotSize * 3,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -54,8 +56,8 @@ class _PulseDotState extends State<PulseDot>
                 child: Opacity(
                   opacity: opacity * 0.6,
                   child: Container(
-                    width: widget.size,
-                    height: widget.size,
+                    width: dotSize,
+                    height: dotSize,
                     decoration: BoxDecoration(
                       color: widget.color,
                       shape: BoxShape.circle,
@@ -64,16 +66,16 @@ class _PulseDotState extends State<PulseDot>
                 ),
               ),
               Container(
-                width: widget.size,
-                height: widget.size,
+                width: dotSize,
+                height: dotSize,
                 decoration: BoxDecoration(
                   color: widget.color,
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
                       color: widget.color.withValues(alpha: 0.6),
-                      blurRadius: 4,
-                      spreadRadius: 0.5,
+                      blurRadius: 4.r,
+                      spreadRadius: 0.5.r,
                     ),
                   ],
                 ),

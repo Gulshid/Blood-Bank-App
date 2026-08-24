@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_group.dart';
 import '../providers/app_provider.dart';
 import '../services/compatibility_engine.dart';
@@ -35,26 +36,26 @@ class DonorSearchScreen extends StatelessWidget {
         children: [
           // Filter Section Header
           GlassCard(
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(14),
+            margin: EdgeInsets.all(16.r),
+            padding: EdgeInsets.all(14.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Filter by Blood Type:',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10.h),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: BloodGroupType.values.map((group) {
                       final isSelected = selectedGroup == group;
                       return Padding(
-                        padding: const EdgeInsets.only(right: 8),
+                        padding: EdgeInsets.only(right: 8.w),
                         child: BloodGroupBadge(
                           group: group,
-                          size: 42,
+                          size: 42.r,
                           isSelected: isSelected,
                           onTap: () {
                             if (isSelected) {
@@ -68,13 +69,13 @@ class DonorSearchScreen extends StatelessWidget {
                     }).toList(),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Distance Radius: ${provider.maxDistanceFilterKm.toInt()} km',
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
                       ),
                     ),
                     Switch(
@@ -82,9 +83,9 @@ class DonorSearchScreen extends StatelessWidget {
                       onChanged: provider.toggleAvailableOnlyFilter,
                       activeThumbColor: AppTheme.primaryCrimson,
                     ),
-                    const Text(
+                    Text(
                       'Available Only',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12.sp),
                     ),
                   ],
                 ),
@@ -104,22 +105,22 @@ class DonorSearchScreen extends StatelessWidget {
           // Medical compatibility note
           if (selectedGroup != null)
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.r),
                 decoration: BoxDecoration(
                   color: AppTheme.medicalTeal.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.r),
                   border: Border.all(color: AppTheme.medicalTeal, width: 1),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.science, color: AppTheme.medicalTealAccent, size: 18),
-                    const SizedBox(width: 8),
+                    Icon(Icons.science, color: AppTheme.medicalTealAccent, size: 18.sp),
+                    SizedBox(width: 8.w),
                     Expanded(
                       child: Text(
                         CompatibilityEngine.getCompatibilityNote(selectedGroup),
-                        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -127,7 +128,7 @@ class DonorSearchScreen extends StatelessWidget {
               ),
             ),
 
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
 
           // Donor List View
           Expanded(
@@ -136,12 +137,12 @@ class DonorSearchScreen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.search_off_rounded,
-                          size: 48,
+                          size: 48.sp,
                           color: Colors.grey,
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12.h),
                         const Text(
                           'No registered donors match your current filter.',
                           style: TextStyle(color: Colors.grey),
@@ -157,7 +158,7 @@ class DonorSearchScreen extends StatelessWidget {
                     ),
                   )
                 : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
                     itemCount: filteredDonors.length,
                     itemBuilder: (context, index) {
                       final donor = filteredDonors[index];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_group.dart';
 import '../theme/app_theme.dart';
 
@@ -18,12 +19,13 @@ class BloodGroupBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scaledSize = size.r;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        width: size,
-        height: size,
+        width: scaledSize,
+        height: scaledSize,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: isSelected
@@ -46,8 +48,8 @@ class BloodGroupBadge extends StatelessWidget {
               ? [
                   BoxShadow(
                     color: AppTheme.primaryCrimson.withValues(alpha: 0.5),
-                    blurRadius: 10,
-                    spreadRadius: 1,
+                    blurRadius: 10.r,
+                    spreadRadius: 1.r,
                   )
                 ]
               : [],
@@ -56,7 +58,7 @@ class BloodGroupBadge extends StatelessWidget {
           child: Text(
             group.label,
             style: TextStyle(
-              fontSize: size * 0.36,
+              fontSize: scaledSize * 0.36,
               fontWeight: FontWeight.w900,
               color: isSelected ? Colors.white : AppTheme.primaryCrimson,
             ),

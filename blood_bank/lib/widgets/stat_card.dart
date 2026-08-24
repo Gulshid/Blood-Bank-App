@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'animations/animated_counter.dart';
 import 'animations/press_scale.dart';
 import 'glass_card.dart';
@@ -27,7 +28,7 @@ class StatCard extends StatelessWidget {
       child: PressScale(
         onTap: onTap,
         child: GlassCard(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(12.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,37 +36,37 @@ class StatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(6),
+                  padding: EdgeInsets.all(6.r),
                   decoration: BoxDecoration(
                     color: iconColor.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                  child: Icon(icon, size: 18, color: iconColor),
+                  child: Icon(icon, size: 18.sp, color: iconColor),
                 ),
                 AnimatedCounter(
                   value: count,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     color: iconColor,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 13,
+              style: TextStyle(
+                fontSize: 13.sp,
                 fontWeight: FontWeight.bold,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 2),
+            SizedBox(height: 2.h),
             Text(
               subtitle,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.sp),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

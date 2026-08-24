@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_group.dart';
 import '../models/blood_inventory.dart';
 import '../theme/app_theme.dart';
@@ -29,7 +30,7 @@ class InventoryCard extends StatelessWidget {
     final hasWarning = center.hasCriticalShortage;
 
     return GlassCard(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: EdgeInsets.only(bottom: 14.h),
       borderColor: hasWarning ? AppTheme.statusCritical.withValues(alpha: 0.4) : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,32 +38,32 @@ class InventoryCard extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(10.r),
                 decoration: BoxDecoration(
                   color: AppTheme.medicalTeal.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.local_hospital,
                   color: AppTheme.medicalTealAccent,
-                  size: 22,
+                  size: 22.sp,
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       center.name,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2.h),
                     Text(
                       '${center.address} • ${center.distanceKm.toStringAsFixed(1)} km',
                       style: Theme.of(context).textTheme.bodySmall,
@@ -74,26 +75,30 @@ class InventoryCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Row(
             children: [
-              Icon(Icons.schedule, size: 14, color: Colors.grey.shade400),
-              const SizedBox(width: 4),
-              Text(
-                center.operatingHours,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+              Icon(Icons.schedule, size: 14.sp, color: Colors.grey.shade400),
+              SizedBox(width: 4.w),
+              Flexible(
+                child: Text(
+                  center.operatingHours,
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
                 decoration: BoxDecoration(
                   color: AppTheme.primaryCrimson.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(6),
+                  borderRadius: BorderRadius.circular(6.r),
                 ),
                 child: Text(
                   'Stock: ${center.totalUnitsAvailable} Units',
-                  style: const TextStyle(
-                    fontSize: 12,
+                  style: TextStyle(
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primaryCrimson,
                   ),
@@ -101,12 +106,12 @@ class InventoryCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 14),
-          const Text(
+          SizedBox(height: 14.h),
+          Text(
             'Live Inventory Status (By Blood Type):',
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8.h),
           // Grid layout of blood group stock indicators
           Wrap(
             spacing: 8,
@@ -114,15 +119,15 @@ class InventoryCard extends StatelessWidget {
             children: center.stocks.map((groupStock) {
               final stockColor = _getStockColor(groupStock.status);
               return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                  vertical: 6.h,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.black26
                       : Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8.r),
                   border: Border.all(
                     color: stockColor.withValues(alpha: 0.6),
                     width: 1,
@@ -133,25 +138,25 @@ class InventoryCard extends StatelessWidget {
                   children: [
                     Text(
                       groupStock.bloodGroup.label,
-                      style: const TextStyle(
-                        fontSize: 12,
+                      style: TextStyle(
+                        fontSize: 12.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(width: 6),
+                    SizedBox(width: 6.w),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 6,
-                        vertical: 1,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 6.w,
+                        vertical: 1.h,
                       ),
                       decoration: BoxDecoration(
                         color: stockColor,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Text(
                         '${groupStock.unitsAvailable}',
-                        style: const TextStyle(
-                          fontSize: 11,
+                        style: TextStyle(
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -162,7 +167,7 @@ class InventoryCard extends StatelessWidget {
               );
             }).toList(),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14.h),
           SizedBox(
             width: double.infinity,
             child: PressScale(
@@ -170,7 +175,7 @@ class InventoryCard extends StatelessWidget {
               onTap: onBookSlot,
               child: OutlinedButton.icon(
                 onPressed: onBookSlot,
-                icon: const Icon(Icons.calendar_month, size: 16),
+                icon: Icon(Icons.calendar_month, size: 16.sp),
                 label: const Text('Schedule Donation Slot'),
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppTheme.medicalTeal),

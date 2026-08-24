@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/donor_profile.dart';
 import '../theme/app_theme.dart';
 import 'animations/press_scale.dart';
@@ -22,14 +23,14 @@ class DonorCard extends StatelessWidget {
     final isAvailable = donor.availability == DonorAvailability.available;
 
     return GlassCard(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12.h),
       child: Row(
         children: [
           Hero(
             tag: 'donor_badge_${donor.id}',
-            child: BloodGroupBadge(group: donor.bloodGroup, size: 54, isSelected: true),
+            child: BloodGroupBadge(group: donor.bloodGroup, size: 54.r, isSelected: true),
           ),
-          const SizedBox(width: 14),
+          SizedBox(width: 14.w),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,8 +40,8 @@ class DonorCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         donor.name,
-                        style: const TextStyle(
-                          fontSize: 16,
+                        style: TextStyle(
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines: 1,
@@ -48,46 +49,46 @@ class DonorCard extends StatelessWidget {
                       ),
                     ),
                     if (donor.isVerifiedMedical) ...[
-                      const SizedBox(width: 4),
-                      const Icon(
+                      SizedBox(width: 4.w),
+                      Icon(
                         Icons.verified,
-                        size: 16,
+                        size: 16.sp,
                         color: AppTheme.medicalTealAccent,
                       ),
                     ],
                   ],
                 ),
-                const SizedBox(height: 3),
+                SizedBox(height: 3.h),
                 Row(
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      size: 13,
+                      size: 13.sp,
                       color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
-                    const SizedBox(width: 2),
+                    SizedBox(width: 2.w),
                     Text(
                       '${donor.city} • ${donor.distanceKm.toStringAsFixed(1)} km',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
+                SizedBox(height: 6.h),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 2,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8.w,
+                    vertical: 2.h,
                   ),
                   decoration: BoxDecoration(
                     color: isAvailable
                         ? AppTheme.statusOptimal.withValues(alpha: 0.15)
                         : Colors.orange.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(4.r),
                   ),
                   child: Text(
                     isAvailable ? 'Available to Donate' : 'Eligible Soon',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 11.sp,
                       fontWeight: FontWeight.bold,
                       color: isAvailable
                           ? AppTheme.statusOptimal
@@ -103,26 +104,26 @@ class DonorCard extends StatelessWidget {
               PressScale(
                 onTap: onCall,
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.r),
                   decoration: const BoxDecoration(
                     color: AppTheme.medicalTeal,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.phone, size: 16, color: Colors.white),
+                  child: Icon(Icons.phone, size: 16.sp, color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 6),
+              SizedBox(height: 6.h),
               PressScale(
                 onTap: onMessage,
                 child: Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.r),
                   decoration: BoxDecoration(
                     color: AppTheme.primaryCrimson.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.message,
-                    size: 16,
+                    size: 16.sp,
                     color: AppTheme.primaryCrimson,
                   ),
                 ),

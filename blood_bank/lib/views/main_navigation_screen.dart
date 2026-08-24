@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
 import '../utils/page_transitions.dart';
@@ -58,13 +59,13 @@ class MainNavigationScreen extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.2),
-              blurRadius: 10,
+              blurRadius: 10.r,
               offset: const Offset(0, -2),
             ),
           ],
         ),
         child: SizedBox(
-          height: 64,
+          height: 64.h,
           child: Row(
             children: List.generate(_icons.length, (index) {
               final isSelected = index == currentIndex;
@@ -171,16 +172,16 @@ class _NavBarItem extends StatelessWidget {
                 builder: (context, t, child) {
                   return Transform.scale(
                     scale: 1.0 + (t * 0.18),
-                    child: Icon(icon, color: color, size: 24),
+                    child: Icon(icon, color: color, size: 24.sp),
                   );
                 },
               ),
             ),
-            const SizedBox(height: 3),
+            SizedBox(height: 3.h),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 220),
               style: TextStyle(
-                fontSize: isSelected ? 11 : 10,
+                fontSize: isSelected ? 11.sp : 10.sp,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 color: color,
               ),

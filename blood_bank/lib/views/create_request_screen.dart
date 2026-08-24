@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_group.dart';
 import '../models/blood_request.dart';
 import '../providers/app_provider.dart';
@@ -51,33 +52,33 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16.r),
           children: [
             GlassCard(
               borderColor: AppTheme.statusCritical.withValues(alpha: 0.4),
               child: Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.add_alert_rounded,
                     color: AppTheme.statusCritical,
-                    size: 28,
+                    size: 28.sp,
                   ),
-                  const SizedBox(width: 12),
-                  const Expanded(
+                  SizedBox(width: 12.w),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Broadcast Urgent Request',
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 2),
+                        SizedBox(height: 2.h),
                         Text(
                           'Will notify compatible registered donors within your city immediately.',
-                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                          style: TextStyle(fontSize: 11.sp, color: Colors.grey),
                         ),
                       ],
                     ),
@@ -85,23 +86,23 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
-            const Text(
+            Text(
               '1. Select Required Blood Group',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: BloodGroupType.values.map((group) {
                   final isSelected = _selectedGroup == group;
                   return Padding(
-                    padding: const EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.only(right: 10.w),
                     child: BloodGroupBadge(
                       group: group,
-                      size: 50,
+                      size: 50.r,
                       isSelected: isSelected,
                       onTap: () {
                         setState(() {
@@ -113,25 +114,25 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                 }).toList(),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Container(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(10.r),
               decoration: BoxDecoration(
                 color: AppTheme.medicalTeal.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.people_alt, color: AppTheme.medicalTealAccent, size: 18),
-                  const SizedBox(width: 8),
+                  Icon(Icons.people_alt, color: AppTheme.medicalTealAccent, size: 18.sp),
+                  SizedBox(width: 8.w),
                   Text(
                     '${matchingDonors.length} compatible registered donors nearby for ${_selectedGroup.label}',
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
 
             TextFormField(
               controller: _patientNameController,
@@ -143,14 +144,14 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ? 'Please enter patient name'
                   : null,
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Blood Units Required (Bags):',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                 ),
                 IconButton(
@@ -161,8 +162,8 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                 ),
                 Text(
                   '$_unitsNeeded Units',
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: AppTheme.primaryCrimson,
                   ),
@@ -175,24 +176,24 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
-            const Text(
+            Text(
               'Urgency Priority Level:',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Row(
               children: UrgencyLevel.values.map((urgency) {
                 final isSel = _selectedUrgency == urgency;
                 return Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    padding: EdgeInsets.symmetric(horizontal: 4.0.w),
                     child: ChoiceChip(
                       label: Text(
                         urgency.label.split(' ')[0],
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.bold,
                           color: isSel ? Colors.white : null,
                         ),
@@ -211,7 +212,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                 );
               }).toList(),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
 
             TextFormField(
               controller: _hospitalNameController,
@@ -223,7 +224,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ? 'Please enter hospital name'
                   : null,
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
             TextFormField(
               controller: _hospitalAddressController,
@@ -235,7 +236,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ? 'Please enter address'
                   : null,
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
             TextFormField(
               controller: _contactPhoneController,
@@ -248,7 +249,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ? 'Please enter phone number'
                   : null,
             ),
-            const SizedBox(height: 14),
+            SizedBox(height: 14.h),
 
             TextFormField(
               controller: _reasonController,
@@ -261,7 +262,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
                   ? 'Please describe reason for donation'
                   : null,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
 
             ElevatedButton.icon(
               onPressed: () {
@@ -291,7 +292,7 @@ class _CreateRequestScreenState extends State<CreateRequestScreen> {
               icon: const Icon(Icons.send_rounded),
               label: const Text('Publish Emergency Broadcast'),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding: EdgeInsets.symmetric(vertical: 16.h),
                 backgroundColor: AppTheme.primaryCrimson,
               ),
             ),

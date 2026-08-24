@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
@@ -28,7 +29,7 @@ class GlassCard extends StatelessWidget {
     // wrapped around the outside still leaves the Container's DecoratedBox
     // between the ListTile and the Material, which triggers the same warning.
     Widget content = Container(
-      padding: padding ?? const EdgeInsets.all(16),
+      padding: padding ?? EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: isDark
             ? const Color(0xFF222630).withValues(alpha: 0.85)
@@ -44,8 +45,8 @@ class GlassCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark ? Colors.black38 : Colors.black.withValues(alpha: 0.05),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            blurRadius: 12.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),

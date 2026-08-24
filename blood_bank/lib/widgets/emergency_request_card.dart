@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/blood_request.dart';
 import '../theme/app_theme.dart';
 import 'animations/press_scale.dart';
@@ -39,7 +40,7 @@ class EmergencyRequestCard extends StatelessWidget {
       onTap: onTap,
       scaleAmount: 0.98,
       child: GlassCard(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: EdgeInsets.only(bottom: 14.h),
       borderColor: request.urgency == UrgencyLevel.critical
           ? AppTheme.statusCritical.withValues(alpha: 0.4)
           : null,
@@ -53,11 +54,11 @@ class EmergencyRequestCard extends StatelessWidget {
                 tag: 'blood_badge_${request.id}',
                 child: BloodGroupBadge(
                   group: request.bloodGroup,
-                  size: 52,
+                  size: 52.r,
                   isSelected: true,
                 ),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: 14.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,13 +66,13 @@ class EmergencyRequestCard extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 3,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8.w,
+                            vertical: 3.h,
                           ),
                           decoration: BoxDecoration(
                             color: urgencyColor.withValues(alpha: 0.18),
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(6.r),
                             border: Border.all(color: urgencyColor, width: 1),
                           ),
                           child: Row(
@@ -81,14 +82,14 @@ class EmergencyRequestCard extends StatelessWidget {
                                 request.urgency == UrgencyLevel.critical
                                     ? Icons.warning_amber_rounded
                                     : Icons.access_time_rounded,
-                                size: 12,
+                                size: 12.sp,
                                 color: urgencyColor,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 4.w),
                               Text(
                                 request.urgency.label.split(' ')[0],
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                   color: urgencyColor,
                                 ),
@@ -99,31 +100,31 @@ class EmergencyRequestCard extends StatelessWidget {
                         const Spacer(),
                         Icon(
                           Icons.near_me_outlined,
-                          size: 14,
+                          size: 14.sp,
                           color: Theme.of(context).textTheme.bodySmall?.color,
                         ),
-                        const SizedBox(width: 2),
+                        SizedBox(width: 2.w),
                         Text(
                           '${request.distanceKm.toStringAsFixed(1)} km away',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                     ),
-                    const SizedBox(height: 6),
+                    SizedBox(height: 6.h),
                     Text(
                       'Patient: ${request.patientName}',
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 2),
+                    SizedBox(height: 2.h),
                     Text(
                       request.hospitalName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 13.sp,
                         color: Theme.of(
                           context,
                         ).textTheme.bodyMedium?.color?.withValues(alpha: 0.8),
@@ -134,38 +135,38 @@ class EmergencyRequestCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Text(
             request.medicalReason,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+            style: TextStyle(fontSize: 12.sp, fontStyle: FontStyle.italic),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14.h),
           // Unit progress meter
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Units Required: ${request.unitsFulfilled}/${request.unitsNeeded} Units',
-                style: const TextStyle(
-                  fontSize: 12,
+                style: TextStyle(
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
                 '${(progress * 100).toInt()}%',
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.bold,
                   color: urgencyColor,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: 6.h),
           ClipRRect(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(4.r),
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0, end: progress.toDouble()),
               duration: const Duration(milliseconds: 700),
@@ -173,40 +174,40 @@ class EmergencyRequestCard extends StatelessWidget {
               builder: (context, animatedProgress, child) {
                 return LinearProgressIndicator(
                   value: animatedProgress,
-                  minHeight: 6,
+                  minHeight: 6.h,
                   backgroundColor: Colors.grey.withValues(alpha: 0.2),
                   valueColor: AlwaysStoppedAnimation<Color>(urgencyColor),
                 );
               },
             ),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14.h),
           Row(
             children: [
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: onTap,
-                  icon: const Icon(Icons.info_outline, size: 16),
+                  icon: Icon(Icons.info_outline, size: 16.sp),
                   label: const Text('View Details'),
                   style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 10.w),
               Expanded(
                 child: ElevatedButton.icon(
                   onPressed: onRespond,
-                  icon: const Icon(Icons.volunteer_activism, size: 16),
+                  icon: Icon(Icons.volunteer_activism, size: 16.sp),
                   label: const Text('Donate Now'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primaryCrimson,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                   ),
                 ),

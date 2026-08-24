@@ -44,6 +44,7 @@ dependencies:
   # Communication & QR Passcard Utilities
   url_launcher: ^6.3.0
   qr_flutter: ^4.1.0
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppTheme {
   static const Color primaryCrimson = Color(0xFFD32F2F);
@@ -46,12 +47,12 @@ class AppTheme {
         surface: darkSurface,
         error: statusCritical,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: darkSurface,
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
           color: Colors.white,
           letterSpacing: 0.5,
@@ -62,7 +63,7 @@ class AppTheme {
         elevation: 4,
         shadowColor: Colors.black45,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -70,9 +71,9 @@ class AppTheme {
           backgroundColor: primaryCrimson,
           foregroundColor: Colors.white,
           elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
         ),
       ),
@@ -80,14 +81,14 @@ class AppTheme {
         filled: true,
         fillColor: darkCardSurface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: const BorderSide(color: primaryCrimson, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       ),
     );
   }
@@ -104,13 +105,13 @@ class AppTheme {
         surface: lightSurface,
         error: statusCritical,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: lightSurface,
         elevation: 0,
         centerTitle: false,
         iconTheme: IconThemeData(color: Colors.black87),
         titleTextStyle: TextStyle(
-          fontSize: 20,
+          fontSize: 20.sp,
           fontWeight: FontWeight.bold,
           color: Colors.black87,
           letterSpacing: 0.5,
@@ -121,7 +122,7 @@ class AppTheme {
         elevation: 2,
         shadowColor: Colors.black12,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -129,9 +130,9 @@ class AppTheme {
           backgroundColor: primaryCrimson,
           foregroundColor: Colors.white,
           elevation: 2,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 14.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
         ),
       ),
@@ -139,14 +140,14 @@ class AppTheme {
         filled: true,
         fillColor: lightCardSurface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(12.r),
           borderSide: const BorderSide(color: primaryCrimson, width: 2),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../providers/app_provider.dart';
 import '../utils/page_transitions.dart';
 import '../widgets/animations/fade_slide_in.dart';
@@ -18,39 +19,39 @@ class BloodInventoryScreen extends StatelessWidget {
         title: const Text('Blood Bank Stock Monitor'),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.r),
         children: [
           // Banner summary
           Container(
-            padding: const EdgeInsets.all(14),
+            padding: EdgeInsets.all(14.r),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFF004D40), Color(0xFF00897B)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
             ),
             child: Row(
               children: [
-                const Icon(Icons.inventory_2_outlined, color: Colors.white, size: 32),
-                const SizedBox(width: 14),
+                Icon(Icons.inventory_2_outlined, color: Colors.white, size: 32.sp),
+                SizedBox(width: 14.w),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Regional Blood Stock Network',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 2),
+                      SizedBox(height: 2.h),
                       Text(
                         'Tracking ${centers.length} regional blood banks & emergency reserves in real-time.',
-                        style: const TextStyle(fontSize: 11, color: Colors.white70),
+                        style: TextStyle(fontSize: 11.sp, color: Colors.white70),
                       ),
                     ],
                   ),
@@ -58,13 +59,13 @@ class BloodInventoryScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
 
-          const Text(
+          Text(
             'Nearby Hospital Blood Banks:',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
 
           ...centers.asMap().entries.map((entry) {
             final index = entry.key;

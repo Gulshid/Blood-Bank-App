@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../providers/app_provider.dart';
 import '../theme/app_theme.dart';
 import '../utils/page_transitions.dart';
@@ -27,8 +28,8 @@ class DashboardScreen extends StatelessWidget {
           // Custom App Bar Ticker Header
           SliverToBoxAdapter(
             child: Container(
-              padding: const EdgeInsets.fromLTRB(16, 48, 16, 20),
-              decoration: const BoxDecoration(
+              padding: EdgeInsets.fromLTRB(16.w, 48.h, 16.w, 20.h),
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     AppTheme.primaryCrimsonDark,
@@ -38,8 +39,8 @@ class DashboardScreen extends StatelessWidget {
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(24),
-                  bottomRight: Radius.circular(24),
+                  bottomLeft: Radius.circular(24.r),
+                  bottomRight: Radius.circular(24.r),
                 ),
               ),
               child: Column(
@@ -47,7 +48,7 @@ class DashboardScreen extends StatelessWidget {
                   Row(
                     children: [
                       CircleAvatar(
-                        radius: 24,
+                        radius: 24.r,
                         backgroundColor: AppTheme.primaryCrimson,
                         child: Text(
                           user.name.split(' ').map((e) => e[0]).take(2).join(),
@@ -57,7 +58,7 @@ class DashboardScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,14 +66,14 @@ class DashboardScreen extends StatelessWidget {
                             Text(
                               'Welcome back,',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 12.sp,
                                 color: Colors.grey.shade400,
                               ),
                             ),
                             Text(
                               user.name,
-                              style: const TextStyle(
-                                fontSize: 18,
+                              style: TextStyle(
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
@@ -82,30 +83,30 @@ class DashboardScreen extends StatelessWidget {
                       ),
                       BloodGroupBadge(
                         group: user.bloodGroup,
-                        size: 46,
+                        size: 46.r,
                         isSelected: true,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // Lives Saved Ticker Banner
                   GlassCard(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8.r),
                           decoration: const BoxDecoration(
                             color: AppTheme.primaryCrimson,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.favorite,
                             color: Colors.white,
-                            size: 20,
+                            size: 20.sp,
                           ),
                         ),
-                        const SizedBox(width: 12),
+                        SizedBox(width: 12.w),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,15 +114,15 @@ class DashboardScreen extends StatelessWidget {
                               AnimatedCounter(
                                 value: user.livesSavedEstimate,
                                 suffix: ' Lives Impacted',
-                                style: const TextStyle(
-                                  fontSize: 15,
+                                style: TextStyle(
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
                                 user.daysUntilNextEligible == 0 ? "You are eligible to donate today!" : "Next eligible donation in ${user.daysUntilNextEligible} days",
                                 style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 11.sp,
                                   color: user.daysUntilNextEligible == 0
                                       ? AppTheme.statusOptimal
                                       : Colors.amber,
@@ -151,15 +152,15 @@ class DashboardScreen extends StatelessWidget {
           // Action Quick Grid
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Network Metrics',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     children: [
                       StatCard(
@@ -170,7 +171,7 @@ class DashboardScreen extends StatelessWidget {
                         iconColor: AppTheme.statusCritical,
                         onTap: () => provider.setTabIndex(0),
                       ),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10.w),
                       StatCard(
                         title: 'Active Donors',
                         count: provider.filteredDonors.length,
@@ -181,7 +182,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
 
                   // Quick Action Buttons
                   Row(
@@ -195,18 +196,18 @@ class DashboardScreen extends StatelessWidget {
                           label: const Text('Post Request'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppTheme.primaryCrimson,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            padding: EdgeInsets.symmetric(vertical: 14.h),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       Expanded(
                         child: OutlinedButton.icon(
                           onPressed: () => provider.setTabIndex(2),
                           icon: const Icon(Icons.local_hospital_outlined),
                           label: const Text('Stock Levels'),
                           style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            padding: EdgeInsets.symmetric(vertical: 14.h),
                             side: const BorderSide(color: AppTheme.medicalTeal),
                             foregroundColor: AppTheme.medicalTealAccent,
                           ),
@@ -214,34 +215,34 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
                   // Live Feed Header
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Live Emergency Feed',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 4.h),
                         decoration: BoxDecoration(
                           color: AppTheme.statusCritical.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Row(
                           children: [
-                            const PulseDot(color: AppTheme.statusCritical, size: 8),
-                            const SizedBox(width: 2),
+                            PulseDot(color: AppTheme.statusCritical, size: 8.r),
+                            SizedBox(width: 2.w),
                             Text(
                               '${activeRequests.length} Live',
-                              style: const TextStyle(
-                                fontSize: 11,
+                              style: TextStyle(
+                                fontSize: 11.sp,
                                 color: AppTheme.statusCritical,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -258,7 +259,7 @@ class DashboardScreen extends StatelessWidget {
 
           // List of Emergency Request Cards
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
@@ -288,8 +289,8 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
 
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 40),
+          SliverToBoxAdapter(
+            child: SizedBox(height: 40.h),
           ),
         ],
       ),
